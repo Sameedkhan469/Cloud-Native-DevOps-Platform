@@ -1,0 +1,17 @@
+
+# Python virtual environment
+app/venv/
+__pycache__/
+*.pyc
+
+# Local environment and secrets
+.env
+kubernetes/secret.yaml
+
+# Generated Docker image archive
+devops-flask-app.tar
+
+# Editor and OS files
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,66 @@
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: devops-flask-dev
+  namespace: development
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: devops-flask-dev
+
+  template:
+    metadata:
+      labels:
+        app: devops-flask-dev
+
+    spec:
+      containers:
+        - name: flask-container
+          image: devops-flask-app:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 5000
+
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            failureThreshold: 30
+            periodSeconds: 5
+
+          volumeMounts:
+            - name: flask-storage
+              mountPath: /data
+
+      volumes:
+        - name: flask-storage
+          persistentVolumeClaim:
+            claimName: devops-flask-pvc
