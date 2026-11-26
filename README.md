@@ -1,200 +1,246 @@
 # Cloud-Native DevOps Platform on AWS EKS
 
-A cloud-native DevOps project that deploys a Flask application to Amazon EKS using Docker, Amazon ECR, Kubernetes, and Terraform.
+A Python Flask application containerized with Docker, stored in Amazon ECR and deployed to Amazon EKS with Kubernetes, on AWS infrastructure provisioned with Terraform.
 
-> **Project status:** The Flask application was deployed to EKS and successfully tested through Kubernetes port-forwarding. AWS resources were subsequently destroyed with Terraform to avoid ongoing charges. Public access through NodePort was not fully verified.
+![Python](https://img.shields.io/badge/Python_3.12-3776AB?style=flat-square&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask_3.1.2-000000?style=flat-square&logo=flask&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=flat-square&logo=terraform&logoColor=white)
+![Amazon EKS](https://img.shields.io/badge/Amazon_EKS-FF9900?style=flat-square)
+![Amazon ECR](https://img.shields.io/badge/Amazon_ECR-FF9900?style=flat-square)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)
+
+> **Project status**
+> - Testing with `kubectl port-forward` was **successful**.
+> - Public access on NodePort `30080` is the intended design but was **not verified**.
+> - The AWS infrastructure was **destroyed with Terraform** after testing. Nothing is currently running.
+> - Image build, push and deployment were performed **manually**.
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Architecture Diagram](#architecture-diagram)
-- [Application Request Flow](#application-request-flow)
-- [Infrastructure Provisioning Flow](#infrastructure-provisioning-flow)
-- [Technology Stack](#technology-stack)
-- [Project Features](#project-features)
-- [Application Health Check](#application-health-check)
-- [AWS Infrastructure](#aws-infrastructure)
-- [Repository Structure](#repository-structure)
-- [Prerequisites](#prerequisites)
-- [Run Locally with Docker](#run-locally-with-docker)
-- [Deploy to AWS EKS](#deploy-to-aws-eks)
-- [Kubernetes Resources](#kubernetes-resources)
-- [Testing and Validation](#testing-and-validation)
-- [Troubleshooting](#troubleshooting)
-- [Security Best Practices](#security-best-practices)
-- [Terraform Cleanup](#terraform-cleanup)
-- [Future Improvements](#future-improvements)
-- [What I Learned](#what-i-learned)
-- [Author](#author)
-
----
+1. [Project Overview](#project-overview)
+2. [Project Objectives](#project-objectives)
+3. [Architecture Diagram](#architecture-diagram)
+4. [Architecture Explanation](#architecture-explanation)
+5. [End-to-End Workflow](#end-to-end-workflow)
+6. [Application Request Flow](#application-request-flow)
+7. [Infrastructure Provisioning with Terraform](#infrastructure-provisioning-with-terraform)
+8. [Technology Stack](#technology-stack)
+9. [AWS Services](#aws-services)
+10. [Docker Image Build and ECR Push](#docker-image-build-and-ecr-push)
+11. [Amazon EKS and Kubernetes Deployment](#amazon-eks-and-kubernetes-deployment)
+12. [Kubernetes Resources](#kubernetes-resources)
+13. [Application Testing and Health Check](#application-testing-and-health-check)
+14. [Project Directory Structure](#project-directory-structure)
+15. [Prerequisites and Installation](#prerequisites-and-installation)
+16. [Step-by-Step Deployment](#step-by-step-deployment)
+17. [Useful Commands](#useful-commands)
+18. [Troubleshooting](#troubleshooting)
+19. [Security Best Practices](#security-best-practices)
+20. [Terraform Destroy and Cost Cleanup](#terraform-destroy-and-cost-cleanup)
+21. [What I Learned](#what-i-learned)
+22. [Future Improvements](#future-improvements)
+23. [Project Summary](#project-summary)
+24. [Author](#author)
 
 ## Project Overview
 
-This project demonstrates an end-to-end container deployment workflow using AWS cloud services and DevOps tools.
+This project demonstrates the path of a small web application from source code to a Kubernetes cluster on AWS. The Flask application exposes three JSON endpoints. It is packaged as a Docker image, stored in a private Amazon ECR repository and run as a Pod on an Amazon EKS managed node group.
 
-The application is containerized using Docker, stored in Amazon Elastic Container Registry (ECR), and deployed to Amazon Elastic Kubernetes Service (EKS).
+| Setting | Value |
+|---|---|
+| AWS Region | `ap-south-1` (Mumbai) |
+| EKS cluster | `devops-eks-cluster` |
+| ECR repository | `devops-flask-app` |
+| Kubernetes Deployment | `devops-flask-deployment` |
+| Kubernetes Service | `devops-flask-service` |
+| Application port | `5000` |
+| NodePort | `30080` |
+| Worker instance type | `t3.small` |
 
-Terraform is used to provision and manage the AWS infrastructure as Infrastructure as Code (IaC).
+> **Repository scope:** The Terraform configuration used for the AWS lab is not currently committed; `terraform/` is a placeholder. The committed Deployment also uses a local image setting, which must be changed for EKS (see [deployment step 4](#4-prepare-the-manifest-and-secret)).
 
-### Project Objectives
+## Project Objectives
 
-- Automate AWS infrastructure provisioning using Terraform.
-- Containerize a Flask application using Docker.
-- Store and manage Docker images using Amazon ECR.
-- Deploy and manage containers using Kubernetes.
-- Run Kubernetes workloads on Amazon EKS.
-- Configure applications using ConfigMaps and Secrets.
-- Expose the application through a Kubernetes Service.
-- Validate application health and troubleshoot deployment issues.
-- Clean up cloud infrastructure to control costs.
+- Provision AWS infrastructure as code with Terraform.
+- Containerize a Flask application with Docker.
+- Store the image in Amazon ECR.
+- Run the application on Amazon EKS.
+- Supply configuration through a ConfigMap and a Secret.
+- Expose the application inside Kubernetes with a NodePort Service.
+- Test and troubleshoot the deployment.
+- Destroy cloud resources after testing to control cost.
 
 ## Architecture Diagram
 
-![End-to-end Cloud-Native DevOps Platform architecture](./assets/architecture.svg)
+![Cloud-Native DevOps Platform Architecture](./assets/architecture-aws-flow.svg)
 
-The image above shows the project in three simple flows:
+*Architecture diagram of the project workflow; it is not live monitoring.*
 
-- **Code and image delivery:** VS Code → GitHub → Docker → Amazon ECR → Amazon EKS
-- **User request:** Browser → AWS network / NodePort → Kubernetes Service → Flask Pod → Flask app
-- **Infrastructure:** Terraform → AWS networking and IAM → EKS worker nodes and ECR
+## Architecture Explanation
 
-**Accuracy note:** The application was verified with `kubectl port-forward`. The public NodePort path is the intended design, but public access was not verified. Infrastructure was destroyed after testing. This is an architecture illustration, not live monitoring of a running cluster.
+| Diagram area | What it shows |
+|---|---|
+| Infrastructure provisioning | Terraform creates the VPC, subnets, Internet Gateway, route table and associations, IAM roles and policies, EKS cluster, managed node group and ECR repository. |
+| AWS networking | The worker node runs inside the VPC. The Internet Gateway and route table provide the network route needed for public connectivity. |
+| Build and image delivery | The code is kept in Git and GitHub. The Docker image is built and pushed manually. |
+| Image storage | Amazon ECR holds the image, and the worker node pulls it when the Pod is scheduled. |
+| EKS cluster | AWS manages the control plane. A managed worker node runs the application. |
+| Deployment and Pod | `devops-flask-deployment` keeps one Flask Pod running. |
+| ConfigMap and Secret | Both are injected into the container as environment variables. |
+| Public request path (amber) | Intended route through the node's public IP and NodePort `30080`. **Not verified.** |
+| Test path (green) | Access through `kubectl port-forward`. **Verified.** |
+
+## End-to-End Workflow
 
 
-GitHub renders these Mermaid diagrams directly in the README. The arrows show the intended application traffic and deployment paths.
+1. Terraform provisions the AWS infrastructure.
+2. The application source is committed and pushed to GitHub.
+3. The Docker image is built from `docker/Dockerfile`.
+4. The image is tagged and pushed to ECR.
+5. `kubectl` applies the ConfigMap, Deployment and Service, after the Secret is created.
+6. The worker node pulls the image and starts the Pod.
+7. The application is tested with port-forwarding.
+8. The infrastructure is destroyed.
 
-### Simple architecture diagram
-
-Follow the solid arrows to understand how a request reaches the application. The dashed arrow shows where Kubernetes gets the container image.
-
-```mermaid
-flowchart LR
-    U["1. User / Browser"]
-    NET["2. AWS Network<br/>Public IP + Security Group"]
-    EKS["3. EKS Worker Node"]
-    SVC["4. Kubernetes Service<br/>NodePort 30080"]
-    POD["5. Flask Pod"]
-    APP["6. Flask App<br/>Port 5000"]
-
-    U -->|"HTTP request"| NET
-    NET --> EKS
-    EKS --> SVC
-    SVC --> POD
-    POD --> APP
-    APP -->|"HTTP response"| U
-
-    ECR[("Amazon ECR<br/>Docker Image")]
-    ECR -.->|"Image pulled when Pod starts"| POD
-```
-
-**In simple words:** Docker image is stored in ECR. EKS runs the image inside a Pod. The Kubernetes Service sends traffic to that Pod, and Flask returns the response.
-
-> **Testing note:** I successfully tested the application using `kubectl port-forward`. Public NodePort access through port `30080` was not confirmed, so the public route above shows the intended setup—not a verified public endpoint.
-
-### Verified testing flow (port-forward)
-
-```mermaid
-flowchart LR
-    BROWSER["Browser<br/>localhost:5000"]
-    CMD["kubectl port-forward"]
-    SERVICE["Kubernetes Service"]
-    POD["Flask Pod"]
-    FLASK["Flask Application<br/>Port 5000"]
-
-    BROWSER -->|"Request"| CMD
-    CMD -->|"Local port 5000 to Service port 5000"| SERVICE
-    SERVICE --> POD
-    POD --> FLASK
-    FLASK -->|"Healthy JSON response"| BROWSER
-```
-
-### Infrastructure provisioning flow
-
-```mermaid
-flowchart TD
-    TF["Terraform Configuration"]
-    INIT["terraform init"]
-    PLAN["terraform plan"]
-    APPLY["terraform apply"]
-    AWS["AWS Cloud"]
-    VPC["VPC and Subnets"]
-    NETWORK["Internet Gateway<br/>Route Table"]
-    EKS["Amazon EKS Cluster"]
-    NODEGROUP["EKS Worker Node Group"]
-    IAM["IAM Roles and Policies"]
-    ECR["Amazon ECR Repository"]
-    DOCKER["Docker Build"]
-    IMAGE["Docker Image"]
-    PUSH["Docker Push"]
-    DEPLOY["Kubernetes Deployment"]
-    POD["Application Pod"]
-    SERVICE["Kubernetes Service"]
-
-    TF --> INIT --> PLAN --> APPLY --> AWS
-    AWS --> VPC
-    AWS --> NETWORK
-    AWS --> EKS
-    AWS --> NODEGROUP
-    AWS --> IAM
-    AWS --> ECR
-    DOCKER --> IMAGE --> PUSH --> ECR
-    ECR -->|"Image pull"| POD
-    EKS --> NODEGROUP
-    NODEGROUP --> DEPLOY --> POD --> SERVICE
-```
+All of these steps are run by hand.
 
 ## Application Request Flow
 
-The intended request path is:
+### Intended public access (not verified)
 
-1. The user opens the application URL in a browser.
-2. The browser sends an HTTP request to the worker node's public IP on NodePort `30080`.
-3. The AWS security group must allow inbound TCP traffic on that port.
-4. The EKS worker node receives the request.
-5. Kubernetes NodePort forwards the request to `devops-flask-service`.
-6. The Service selects the application Pod using its label selector.
-7. The Pod forwards the request to Flask on port `5000`.
-8. Flask processes the request and generates an HTTP response.
-9. The response returns through the Pod, Service, worker node, and network to the browser.
 
-The successful test used Kubernetes port-forwarding rather than public NodePort access.
+This path needs a worker node with a public IP, a route through the Internet Gateway and a security group rule allowing TCP `30080`. The response returns along the same path.
+
+### Verified test (port-forward)
+
+
+The diagram shows the logical path. Technically, `kubectl port-forward` selects one Pod behind the Service and tunnels to it through the Kubernetes API server. It therefore does not test NodePort routing or security group rules.
+
+## Infrastructure Provisioning with Terraform
+
+Terraform was used to provision:
+
+- VPC and subnets
+- Internet Gateway
+- Route table and route table associations
+- IAM roles and policy attachments
+- Amazon EKS cluster
+- EKS managed node group
+- Amazon ECR repository
+
+The `.tf` files are **not yet in this repository**. The commands below apply once you add your own configuration to `terraform/`.
+
+```bash
+cd terraform
+terraform init        # download providers
+terraform fmt         # format files
+terraform validate    # check configuration
+terraform plan -out=tfplan   # preview and save the changes
+terraform apply tfplan       # create the reviewed resources
+cd ..
+```
+
+Applying a saved plan does not ask for confirmation, so review the plan output first.
 
 ## Technology Stack
 
 | Category | Technology |
 |---|---|
-| Cloud Provider | Amazon Web Services (AWS) |
+| Application | Python 3.12, Flask 3.1.2 |
+| Containerization | Docker (`python:3.12-slim`) |
+| Orchestration | Kubernetes on Amazon EKS |
+| Image registry | Amazon ECR |
 | Infrastructure as Code | Terraform |
-| Containerization | Docker |
-| Container Registry | Amazon ECR |
-| Kubernetes Platform | Amazon EKS |
-| Container Orchestration | Kubernetes |
-| Application | Python Flask |
-| Configuration | Kubernetes ConfigMap |
-| Sensitive Configuration | Kubernetes Secret |
-| Networking | VPC, Subnets, Internet Gateway, Route Table |
-| Identity and Access | AWS IAM |
-| Source Control | Git and GitHub |
+| Cloud | AWS |
+| Source control | Git, GitHub |
 
-## Project Features
+## AWS Services
 
-- Infrastructure provisioning using Terraform.
-- AWS VPC and subnet configuration.
-- EKS cluster and worker node group.
-- Docker image build and containerization.
-- Private Docker image storage in Amazon ECR.
-- Kubernetes Deployment for application management.
-- Kubernetes NodePort Service.
-- ConfigMap for application configuration.
-- Secret resource for sensitive configuration.
-- Application health verification.
-- Kubernetes troubleshooting and log inspection.
-- Terraform destroy for cloud resource cleanup.
+| Service | Role in this project |
+|---|---|
+| Amazon VPC | Isolated network for the cluster |
+| Subnets | Network segments within the VPC |
+| Internet Gateway | Connects the VPC to the internet |
+| Route table | Directs subnet traffic |
+| AWS IAM | Permissions for the cluster and worker nodes |
+| Amazon EKS | Managed Kubernetes control plane |
+| EKS managed node group | EC2 worker capacity (`t3.small`) |
+| Amazon ECR | Private Docker image registry |
 
-## Application Health Check
+## Docker Image Build and ECR Push
 
-The Flask application returned this response when tested through port-forwarding:
+Run these from the repository root in a Bash shell. The ECR repository must already exist.
+
+```bash
+export AWS_REGION=ap-south-1
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export ECR_REGISTRY=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+export IMAGE_URI=$ECR_REGISTRY/devops-flask-app:v1
+
+# Build for the x86_64 architecture used by t3.small
+docker build --platform linux/amd64 -f docker/Dockerfile -t devops-flask-app:v1 .
+
+# Log Docker in to ECR with a temporary token
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+# Tag and push
+docker tag devops-flask-app:v1 $IMAGE_URI
+docker push $IMAGE_URI
+```
+
+## Amazon EKS and Kubernetes Deployment
+
+Connect `kubectl` to the cluster and confirm the node is `Ready`:
+
+```bash
+aws eks update-kubeconfig --region ap-south-1 --name devops-eks-cluster
+kubectl config current-context
+kubectl get nodes -o wide
+```
+
+The manifests are in `kubernetes/`. The full order of commands is in [Step-by-Step Deployment](#step-by-step-deployment).
+
+## Kubernetes Resources
+
+| Resource | Name | Purpose |
+|---|---|---|
+| Deployment | `devops-flask-deployment` | Runs one replica of the application |
+| Pod | Created by the Deployment | Runs `flask-container` on port `5000` |
+| Service | `devops-flask-service` | NodePort `30080` to target port `5000`, selecting `app: devops-flask` |
+| ConfigMap | `devops-flask-config` | `APP_NAME`, `APP_VERSION`, `APP_ENV` |
+| Secret | `devops-flask-secret` | Sensitive values; manifest is not committed |
+
+The Deployment also defines:
+
+- **Resources:** requests of `100m` CPU and `64Mi` memory; limits of `500m` CPU and `128Mi` memory.
+- **Probes:** startup, liveness and readiness checks on `/health`.
+
+The current application code does not read the ConfigMap or Secret variables; its responses are hardcoded.
+
+## Application Testing and Health Check
+
+```bash
+kubectl port-forward svc/devops-flask-service 5000:5000
+```
+
+Keep that terminal open and run these in a second one:
+
+```bash
+curl http://localhost:5000/
+curl http://localhost:5000/health
+curl http://localhost:5000/info
+```
+
+| Endpoint | Returns |
+|---|---|
+| `/` | Project name, message and status |
+| `/health` | `UP` status and a UTC timestamp |
+| `/info` | Application name, version and environment |
+
+Response from `/`:
 
 ```json
 {
@@ -204,383 +250,216 @@ The Flask application returned this response when tested through port-forwarding
 }
 ```
 
-This confirmed that the application was running and responding through the Kubernetes Service during the test.
+Validation performed during the lab:
 
-## AWS Infrastructure
+- Terraform provisioned the infrastructure.
+- The worker node became `Ready`.
+- The image was pushed to ECR.
+- The application Pod reached `Running`.
+- The application responded through port-forwarding.
+- `terraform destroy` removed the infrastructure.
 
-Terraform managed the following AWS resources for this lab:
-
-- VPC
-- Subnets
-- Internet Gateway
-- Route table and route-table associations
-- Amazon EKS cluster
-- EKS managed node group
-- IAM roles and policy attachments
-- Amazon ECR repository
-
-### AWS Configuration
-
-| Setting | Value |
-|---|---|
-| AWS Region | `ap-south-1` |
-| Region Name | Mumbai |
-| EKS Cluster | `devops-eks-cluster` |
-| ECR Repository | `devops-flask-app` |
-| Kubernetes Service | `devops-flask-service` |
-| Application Port | `5000` |
-| NodePort | `30080` |
-| Worker Instance Type | `t3.small` |
-
-The AWS infrastructure has been destroyed after the deployment lab. These values describe the configuration used during the project.
-
-## Repository Structure
-
-The following is a representative structure. Actual filenames can vary; keep this section aligned with the files in the repository.
+## Project Directory Structure
 
 ```text
 Cloud-Native-DevOps-Platform/
 ├── app/
-│   └── app.py
-├── Dockerfile
-├── k8s/
-│   ├── deployment.yaml
-│   ├── service.yaml
+│   ├── app.py
+│   └── requirements.txt
+├── assets/
+│   ├── architecture-aws-flow.svg
+│   └── architecture.svg
+├── docker/
+│   └── Dockerfile
+├── docs/                          # placeholder
+├── jenkins/                       # placeholder
+├── kubernetes/
 │   ├── configmap.yaml
-│   └── secret.yaml
-├── terraform/
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   ├── providers.tf
-│   └── other Terraform files
+│   ├── deployment.yaml
+│   ├── development-deployment.yaml
+│   ├── ingress.yaml
+│   ├── pvc.yaml
+│   └── service.yaml
+├── monitoring/                    # placeholder
+├── terraform/                     # placeholder
 ├── .gitignore
 └── README.md
 ```
 
-## Prerequisites
+Only `configmap.yaml`, `deployment.yaml` and `service.yaml` are used in the deployment documented here. See [Future Improvements](#future-improvements) for the others.
 
-Install the following tools before reproducing the deployment:
+## Prerequisites and Installation
 
-- Git
-- Docker
-- AWS CLI
-- Terraform
-- kubectl
-- An AWS account with permission to create EKS, EC2, VPC, IAM, and ECR resources
+| Tool | Check |
+|---|---|
+| Git | `git --version` |
+| Docker | `docker --version` |
+| AWS CLI v2 | `aws --version` |
+| Terraform | `terraform version` |
+| kubectl | `kubectl version --client` |
 
-Configure AWS CLI:
+Install each from its official documentation. You also need an AWS account with permission to manage EKS, EC2, VPC, IAM and ECR. **These resources incur charges.**
 
-```bash
-aws configure
-```
+## Step-by-Step Deployment
 
-Use AWS region:
-
-```text
-ap-south-1
-```
-
-Verify the AWS identity and installed tools:
+### 1. Clone and configure
 
 ```bash
-aws sts get-caller-identity
-terraform version
-docker --version
-kubectl version --client
+git clone https://github.com/Sameedkhan469/Cloud-Native-DevOps-Platform.git
+cd Cloud-Native-DevOps-Platform
+aws configure                  # set credentials; region ap-south-1
+aws sts get-caller-identity    # confirm the account
 ```
 
-## Run Locally with Docker
-
-Build the Docker image from the project root:
+Optionally, test the container locally first:
 
 ```bash
-docker build -t devops-flask-app:latest .
+docker build -f docker/Dockerfile -t devops-flask-app:v1 .
+docker run --rm -p 5000:5000 devops-flask-app:v1
 ```
 
-Run the container:
+Open `http://localhost:5000`, then stop the container with `Ctrl+C`.
+
+### 2. Provision infrastructure
+
+Add your Terraform configuration, then follow [Infrastructure Provisioning](#infrastructure-provisioning-with-terraform).
+
+### 3. Build, push and connect
+
+Follow [Docker Image Build and ECR Push](#docker-image-build-and-ecr-push), then run `aws eks update-kubeconfig` as shown [above](#amazon-eks-and-kubernetes-deployment).
+
+### 4. Prepare the manifest and Secret
+
+Print your image URI:
 
 ```bash
-docker run --name devops-flask-container -p 5000:5000 devops-flask-app:latest
+echo $IMAGE_URI
 ```
 
-Open the application at:
+In `kubernetes/deployment.yaml`, replace these two values:
 
-```text
-http://localhost:5000
+```yaml
+image: <your IMAGE_URI>          # was devops-flask-app:v1
+imagePullPolicy: IfNotPresent    # was Never
 ```
 
-Check the running container and logs:
+Create the Secret with a placeholder or your own value. Never commit real values.
 
 ```bash
+kubectl create secret generic devops-flask-secret --from-literal=EXAMPLE_KEY=replace-me
+```
+
+### 5. Deploy
+
+```bash
+kubectl apply -f kubernetes/configmap.yaml
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+kubectl rollout status deployment/devops-flask-deployment
+kubectl get pods,services -o wide
+```
+
+### 6. Test and clean up
+
+Follow [Application Testing](#application-testing-and-health-check), then [Terraform Destroy](#terraform-destroy-and-cost-cleanup).
+
+### Optional: public NodePort access
+
+This was not verified. To try it, check the node's external IP with `kubectl get nodes -o wide`, allow TCP `30080` from **your own IP only** in the node security group, and open `http://<node-public-ip>:30080`.
+
+## Useful Commands
+
+```bash
+# Docker
+docker images
 docker ps
-docker logs devops-flask-container
-```
+docker logs <container-id>
 
-Stop and remove the container:
+# Terraform (run inside terraform/)
+terraform state list
+terraform output
 
-```bash
-docker stop devops-flask-container
-docker rm devops-flask-container
-```
+# AWS CLI
+aws eks describe-cluster --name devops-eks-cluster --region ap-south-1
+aws ecr describe-images --repository-name devops-flask-app --region ap-south-1
 
-If your Dockerfile or Flask source is in a subfolder, use the correct build context.
-
-## Deploy to AWS EKS
-
-> The AWS infrastructure has been destroyed. These steps describe how to reproduce the deployment; they do not mean the cluster is currently running.
-
-### 1. Initialize and validate Terraform
-
-From the Terraform directory:
-
-```bash
-cd terraform
-terraform init
-terraform fmt
-terraform validate
-terraform plan
-```
-
-Review the plan, then create the infrastructure:
-
-```bash
-terraform apply
-```
-
-Type `yes` only after confirming the resources Terraform will create.
-
-### 2. Build the Docker image
-
-From the application build directory:
-
-```bash
-docker build -t devops-flask-app:latest .
-```
-
-### 3. Authenticate Docker to Amazon ECR
-
-```bash
-aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 164253013248.dkr.ecr.ap-south-1.amazonaws.com
-```
-
-### 4. Tag and push the image
-
-```bash
-docker tag devops-flask-app:latest 164253013248.dkr.ecr.ap-south-1.amazonaws.com/devops-flask-app:latest
-docker push 164253013248.dkr.ecr.ap-south-1.amazonaws.com/devops-flask-app:latest
-```
-
-For a different AWS account, replace the account ID and ECR URI with your own values.
-
-### 5. Connect kubectl to EKS
-
-```bash
-aws eks update-kubeconfig --region ap-south-1 --name devops-eks-cluster
-kubectl config current-context
-kubectl get nodes -o wide
-```
-
-Confirm that kubectl is connected to the AWS EKS cluster, not a local cluster such as Docker Desktop.
-
-### 6. Apply Kubernetes manifests
-
-```bash
-kubectl apply -f k8s/configmap.yaml
-kubectl apply -f k8s/secret.yaml
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-```
-
-Use the actual manifest paths if your repository structure differs.
-
-### 7. Verify the deployment
-
-```bash
-kubectl get deployments
-kubectl get pods -o wide
-kubectl get services
-kubectl logs deployment/devops-flask-deployment
-```
-
-Wait until the application Pod is Running and Ready.
-
-### 8. Test using port-forwarding
-
-```bash
-kubectl port-forward svc/devops-flask-service 5000:5000
-```
-
-Keep the terminal open and visit:
-
-```text
-http://localhost:5000
-```
-
-Stop port-forwarding with `Ctrl+C`.
-
-### 9. Optional: public NodePort access
-
-The Kubernetes Service uses NodePort `30080`. Public access requires:
-
-- A reachable worker-node public IP or another suitable public endpoint.
-- An AWS route and security-group rules that allow the required traffic.
-- TCP port `30080` allowed from the intended source.
-- A correct Kubernetes Service selector and target port.
-- A healthy application Pod.
-
-For a learning environment, restrict inbound access to your own public IP where possible. Avoid opening the NodePort to everyone unless you understand the security implications.
-
-## Kubernetes Resources
-
-### Deployment
-
-The Kubernetes Deployment manages the application Pods and uses the image stored in Amazon ECR:
-
-```text
-164253013248.dkr.ecr.ap-south-1.amazonaws.com/devops-flask-app:latest
-```
-
-The Flask container listens on port `5000`.
-
-### Service
-
-The Service used in the lab is:
-
-```text
-devops-flask-service
-```
-
-It exposes the application through NodePort `30080` and forwards traffic to port `5000` in the application Pod.
-
-### ConfigMap
-
-A ConfigMap stores non-sensitive application configuration, such as environment settings.
-
-### Secret
-
-A Kubernetes Secret stores sensitive configuration, such as passwords or tokens. Kubernetes Secrets are not automatically secure merely because they are Secret objects. Use appropriate RBAC, encryption-at-rest configuration, and a managed secret solution for production workloads.
-
-## Testing and Validation
-
-Useful commands for checking the cluster and application:
-
-```bash
-kubectl get nodes
-kubectl get pods -o wide
-kubectl get services
+# kubectl
+kubectl get deployments,pods,services
 kubectl describe pod <pod-name>
-kubectl logs <pod-name>
+kubectl logs deployment/devops-flask-deployment
+kubectl get endpoints devops-flask-service
 kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl rollout restart deployment/devops-flask-deployment
 ```
-
-### Validation performed
-
-- Terraform infrastructure was provisioned.
-- The EKS worker node became Ready.
-- Docker image was pushed to ECR.
-- Kubernetes application Pod reached Running state.
-- Kubernetes Service was created.
-- Application health response was verified using port-forwarding.
-- Terraform destroy was used to clean up the AWS infrastructure.
 
 ## Troubleshooting
 
-| Problem | Possible Cause | What to Check |
+| Problem | Possible cause | What to check |
 |---|---|---|
-| `ImagePullBackOff` | Image cannot be pulled | ECR URI, image tag, IAM permissions |
-| Pod remains `Pending` | Scheduling issue | Node readiness, CPU and memory, Pod events |
-| Service has no endpoints | Selector mismatch | Service selector and Pod labels |
-| NodePort request times out | Networking or security group | Public IP, route, inbound TCP port `30080` |
-| kubectl connects to local cluster | Wrong context | `kubectl config current-context` |
-| Application does not respond | Flask app or port issue | Container port, Service targetPort, logs |
-| Terraform cannot find VPC | Wrong region or filter | AWS region, account, Terraform variables |
+| `ErrImageNeverPull` | `imagePullPolicy` is still `Never` | Deployment step 4 |
+| `ImagePullBackOff` | Image cannot be pulled | Image URI, tag, node IAM permissions |
+| `exec format error` | Image built for the wrong CPU architecture | Rebuild with `--platform linux/amd64` |
+| `CreateContainerConfigError` | ConfigMap or Secret missing | `kubectl get configmap,secret` |
+| Pod stays `Pending` | Scheduling problem | Node readiness and Pod events |
+| Service has no endpoints | Selector mismatch or Pod not ready | Labels and readiness probe |
+| NodePort times out | Networking | Public IP, route, security group |
+| `kubectl` shows a local cluster | Wrong context | `kubectl config current-context` |
 
 ## Security Best Practices
 
-- Never commit AWS access keys or credentials.
-- Never commit real passwords, API keys, or tokens.
-- Do not commit Terraform state files; they may contain sensitive information.
-- Add `.terraform/`, state files, local environment files, and real secret manifests to `.gitignore`.
-- Use least-privilege IAM policies.
-- Restrict security-group inbound rules to required ports and trusted sources.
-- Use unique image tags for repeatable deployments.
-- Rotate any credentials that are accidentally exposed.
-- Use HTTPS and a managed ingress or load balancer for production applications.
+Recommendations when reproducing or extending this project:
 
-## Terraform Cleanup
+- Never commit AWS keys, passwords, tokens or real Secret manifests.
+- Add `.terraform/`, `*.tfstate*`, `*.tfvars` and `tfplan` to `.gitignore`. The current file does not cover them.
+- Apply least-privilege IAM policies.
+- Restrict security group rules to required ports and trusted source addresses.
+- Remember that Kubernetes Secrets are only base64-encoded in manifests; use RBAC and encryption at rest.
+- Use unique image tags and rotate any exposed credentials.
 
-AWS resources can continue generating charges while they exist.
+## Terraform Destroy and Cost Cleanup
 
-Review the destroy plan:
+**This project's AWS infrastructure has already been destroyed.** If you reproduce it:
 
 ```bash
-terraform plan -destroy
+cd terraform
+terraform plan -destroy    # review what will be removed
+terraform destroy          # confirm with yes
+terraform state list       # should return nothing
 ```
 
-If the plan contains only resources you intend to remove, run:
-
-```bash
-terraform destroy
-```
-
-Type `yes` to confirm.
-
-After the destroy completes, check Terraform state:
-
-```bash
-terraform state list
-```
-
-Also check the AWS Console in the correct region for resources created manually or outside the current Terraform state.
-
-Terraform destroy does not delete local project files, the GitHub repository, or local Docker images and containers.
-
-## Future Improvements
-
-These are planned enhancements, not features claimed as already completed:
-
-- GitHub Actions CI pipeline for testing and Docker image builds.
-- Automated image push to Amazon ECR.
-- Continuous deployment to Amazon EKS.
-- Jenkins pipeline implementation.
-- Argo CD GitOps deployment.
-- Helm chart for Kubernetes application packaging.
-- AWS Load Balancer Controller and Ingress.
-- HTTPS using a managed certificate.
-- Prometheus and Grafana monitoring.
-- Centralized application logging and alerting.
-- Kubernetes readiness and liveness probes.
-- Horizontal Pod Autoscaler.
-- Container image scanning with Trivy.
-- Remote Terraform state with locking.
-- Separate development, staging, and production environments.
+- An ECR repository that still contains images may block deletion unless `force_delete` is set in its Terraform resource.
+- Check the AWS Console in `ap-south-1` for anything created outside Terraform.
 
 ## What I Learned
 
-Through this project, I gained practical experience with:
+- Provisioning AWS networking, IAM and EKS with Terraform.
+- Building container images and publishing them to ECR.
+- Working with Deployments, Pods, Services, ConfigMaps and Secrets.
+- The difference between port-forward testing and public exposure.
+- Diagnosing problems with logs, events and `kubectl describe`.
+- Cleaning up cloud resources to manage cost.
 
-- AWS cloud infrastructure and networking.
-- Terraform Infrastructure as Code.
-- Docker image creation and container management.
-- Amazon ECR image storage.
-- Amazon EKS cluster and worker-node management.
-- Kubernetes Deployments, Pods, Services, ConfigMaps, and Secrets.
-- AWS IAM roles and permissions.
-- Application troubleshooting using Kubernetes logs and commands.
-- Testing Kubernetes applications through port-forwarding.
-- Cloud resource cleanup and cost awareness.
+## Future Improvements
+
+None of the following is part of the completed, verified deployment.
+
+- Commit the Terraform configuration and configure remote state with locking.
+- Verify public NodePort access.
+- Make the application read its ConfigMap and Secret values.
+- Add automated tests and CI/CD (GitHub Actions or Jenkins).
+- Add GitOps delivery with Argo CD.
+- Complete and validate the experimental NGINX Ingress, development Deployment and PersistentVolumeClaim manifests (the Service referenced by the Ingress is still missing).
+- Add a load balancer with HTTPS.
+- Add Prometheus and Grafana monitoring.
+- Add autoscaling and container image scanning.
+
+## Project Summary
+
+A Flask application was containerized with Docker, stored in Amazon ECR and deployed to Amazon EKS on Terraform-provisioned infrastructure. It was successfully tested with `kubectl port-forward`. Public NodePort access was not verified, and the AWS resources have since been destroyed.
 
 ## Author
 
 **Sameed Khan**
 
-GitHub: [Sameedkhan469](https://github.com/Sameedkhan469)
-
-Project Repository: [Cloud-Native-DevOps-Platform](https://github.com/Sameedkhan469/Cloud-Native-DevOps-Platform)
-
----
-
-### Project Summary
-
-This project demonstrates provisioning AWS infrastructure with Terraform, containerizing a Flask application using Docker, storing the image in Amazon ECR, and deploying it to Amazon EKS using Kubernetes. The application was successfully validated through port-forwarding, and the Terraform-managed AWS infrastructure was destroyed after testing to control costs.
+- GitHub: [Sameedkhan469](https://github.com/Sameedkhan469)
+- Repository: [Cloud-Native-DevOps-Platform](https://github.com/Sameedkhan469/Cloud-Native-DevOps-Platform)
