@@ -53,43 +53,33 @@ Terraform is used to provision and manage the AWS infrastructure as Infrastructu
 
 GitHub renders these Mermaid diagrams directly in the README. The arrows show the intended application traffic and deployment paths.
 
-### Application request architecture
+### Simple architecture diagram
+
+Follow the solid arrows to understand how a request reaches the application. The dashed arrow shows where Kubernetes gets the container image.
 
 ```mermaid
-flowchart TD
-    USER["User / Web Browser"]
-    INTERNET["Internet"]
-    PUBLICIP["Worker Node Public IP<br/>NodePort 30080"]
-    SG["AWS Security Group<br/>Allow TCP 30080"]
-    NODE["EKS Worker Node"]
-    SERVICE["Kubernetes Service<br/>devops-flask-service"]
-    POD["Flask Application Pod"]
-    APP["Flask App<br/>Container Port 5000"]
-    ECR["Amazon ECR<br/>devops-flask-app:latest"]
-    CONFIG["Kubernetes ConfigMap"]
-    SECRET["Kubernetes Secret"]
+flowchart LR
+    U["1. User / Browser"]
+    NET["2. AWS Network<br/>Public IP + Security Group"]
+    EKS["3. EKS Worker Node"]
+    SVC["4. Kubernetes Service<br/>NodePort 30080"]
+    POD["5. Flask Pod"]
+    APP["6. Flask App<br/>Port 5000"]
 
-    USER -->|"HTTP request"| INTERNET
-    INTERNET --> PUBLICIP
-    PUBLICIP --> SG
-    SG --> NODE
-    NODE -->|"NodePort routing"| SERVICE
-    SERVICE -->|"targetPort 5000"| POD
+    U -->|"HTTP request"| NET
+    NET --> EKS
+    EKS --> SVC
+    SVC --> POD
     POD --> APP
+    APP -->|"HTTP response"| U
 
-    APP -->|"HTTP response"| POD
-    POD --> SERVICE
-    SERVICE --> NODE
-    NODE --> SG
-    SG --> INTERNET
-    INTERNET --> USER
-
-    ECR -.->|"Worker node pulls image"| POD
-    CONFIG -.->|"Non-sensitive settings"| POD
-    SECRET -.->|"Sensitive settings"| POD
+    ECR[("Amazon ECR<br/>Docker Image")]
+    ECR -.->|"Image pulled when Pod starts"| POD
 ```
 
-**Important:** The application was verified using port-forwarding. The public NodePort path above represents the intended architecture; external access was not confirmed because the required security-group rule for port `30080` had not been configured.
+**In simple words:** Docker image is stored in ECR. EKS runs the image inside a Pod. The Kubernetes Service sends traffic to that Pod, and Flask returns the response.
+
+> **Testing note:** I successfully tested the application using `kubectl port-forward`. Public NodePort access through port `30080` was not confirmed, so the public route above shows the intended setup—not a verified public endpoint.
 
 ### Verified testing flow (port-forward)
 
