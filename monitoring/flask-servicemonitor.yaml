@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: devops-flask
+  namespace: monitoring
+  labels:
+    release: prometheus
+    app: devops-flask
+spec:
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: devops-flask
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
