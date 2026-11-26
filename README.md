@@ -51,6 +51,17 @@ Terraform is used to provision and manage the AWS infrastructure as Infrastructu
 
 ## Architecture Diagram
 
+![End-to-end Cloud-Native DevOps Platform architecture](./assets/architecture.svg)
+
+The image above shows the project in three simple flows:
+
+- **Code and image delivery:** VS Code → GitHub → Docker → Amazon ECR → Amazon EKS
+- **User request:** Browser → AWS network / NodePort → Kubernetes Service → Flask Pod → Flask app
+- **Infrastructure:** Terraform → AWS networking and IAM → EKS worker nodes and ECR
+
+**Accuracy note:** The application was verified with `kubectl port-forward`. The public NodePort path is the intended design, but public access was not verified. Infrastructure was destroyed after testing. This is an architecture illustration, not live monitoring of a running cluster.
+
+
 GitHub renders these Mermaid diagrams directly in the README. The arrows show the intended application traffic and deployment paths.
 
 ### Simple architecture diagram
