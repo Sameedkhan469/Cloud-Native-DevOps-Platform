@@ -1,37 +1,29 @@
-
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: devops-flask-deployment
-
+  labels:
+    app: devops-flask
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: devops-flask
-
   template:
     metadata:
       labels:
         app: devops-flask
-
     spec:
       containers:
         - name: flask-container
-          image: devops-flask-app:v1
-          imagePullPolicy: Never
-
+          image: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/devops-flask-app:v1
+          imagePullPolicy: Always
           ports:
-            - containerPort: 5000
-
+            - name: http
+              containerPort: 5000
           envFrom:
             - configMapRef:
                 name: devops-flask-config
-            - secretRef:
-                name: devops-flask-secret
-
           resources:
             requests:
               memory: "64Mi"
@@ -39,24 +31,29 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
           livenessProbe:
             httpGet:
               path: /health
-              port: 5000
+              port: http
             initialDelaySeconds: 10
             periodSeconds: 10
-
           readinessProbe:
             httpGet:
               path: /health
-              port: 5000
+              port: http
             initialDelaySeconds: 5
             periodSeconds: 5
-
           startupProbe:
             httpGet:
               path: /health
-              port: 5000
+              port: http
             failureThreshold: 30
             periodSeconds: 5
