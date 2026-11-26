@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Cloud-Native DevOps Platform on AWS EKS architecture">
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#e2e8f0}.h{font-size:28px;font-weight:700;fill:#fff}.z{font-size:14px;font-weight:700;letter-spacing:.8px}.b{font-size:13.5px;font-weight:700;fill:#fff}.s{font-size:13px;fill:#cbd5e1}.x{font-size:11.5px;fill:#b6c6dc}</style>
+<defs><marker id="mff9f43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff9f43"/></marker><marker id="m4ea8ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4ea8ff"/></marker><marker id="m35d39a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#35d39a"/></marker><marker id="mfbbf24" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fbbf24"/></marker><marker id="mb794f6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b794f6"/></marker><marker id="m4fd1e8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4fd1e8"/></marker><marker id="m94a3b8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs><rect width="1600" height="900" fill="#081121"/>
+<text x="20" y="38" class="h" text-anchor="start">Cloud-Native DevOps Platform on AWS EKS</text>
+<text x="20" y="62" class="s" text-anchor="start" style="fill:#ff9f43">AWS Region: ap-south-1 (Mumbai)</text>
+<rect x="20" y="78" width="1560" height="138" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="36" y="102" class="z" text-anchor="start">1  INFRASTRUCTURE PROVISIONING</text>
+<rect x="36" y="132" width="180" height="66" rx="10" fill="#14233d" stroke="#b794f6" stroke-width="1.5"/>
+<path transform="translate(45 153.0) scale(1)" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="#b794f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="143.0" y="162.0" class="b" text-anchor="middle">Terraform</text>
+<text x="143.0" y="179.0" class="x" text-anchor="middle">Infrastructure as Code</text>
+<path d="M216 165H228V118H1488" fill="none" stroke="#b794f6" stroke-width="2.2"/>
+<path d="M319 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="240" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(249 158.0) scale(1)" d="M9 3h6v5H9zM2 16h6v5H2zM16 16h6v5h-6zM12 8v4M5 16v-4h14v4" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="336.0" y="175.0" class="b" text-anchor="middle">AWS VPC</text>
+<path d="M486 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="407" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(416 158.0) scale(1)" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="503.0" y="175.0" class="b" text-anchor="middle">Subnets</text>
+<path d="M653 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="574" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(583 158.0) scale(1)" d="M4 21V9a8 8 0 0116 0v12M9 21v-9h6v9" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="670.0" y="167.0" class="b" text-anchor="middle">Internet</text>
+<text x="670.0" y="184.0" class="x" text-anchor="middle">Gateway</text>
+<path d="M820 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="741" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(750 158.0) scale(1)" d="M4 19h6V5h10M16 2l4 3-4 3" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="837.0" y="167.0" class="b" text-anchor="middle">Route table</text>
+<text x="837.0" y="184.0" class="x" text-anchor="middle">+ associations</text>
+<path d="M987 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="908" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(917 158.0) scale(1)" d="M8 8a4 4 0 100 8 4 4 0 000-8zM12 12h10M18 12v4M22 12v3" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1004.0" y="167.0" class="b" text-anchor="middle">IAM roles</text>
+<text x="1004.0" y="184.0" class="x" text-anchor="middle">+ policies</text>
+<path d="M1154 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1075" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1084 158.0) scale(1)" d="M6 6h12v12H6zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1171.0" y="167.0" class="b" text-anchor="middle">Amazon EKS</text>
+<text x="1171.0" y="184.0" class="x" text-anchor="middle">cluster</text>
+<path d="M1321 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1242" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1251 158.0) scale(1)" d="M3 4h18v7H3zM3 13h18v7H3zM7 7.5h.1M7 16.5h.1" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1338.0" y="167.0" class="b" text-anchor="middle">EKS managed</text>
+<text x="1338.0" y="184.0" class="x" text-anchor="middle">node group</text>
+<path d="M1488 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1409" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1418 158.0) scale(1)" d="M12 3l9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1505.0" y="167.0" class="b" text-anchor="middle">Amazon ECR</text>
+<text x="1505.0" y="184.0" class="x" text-anchor="middle">repository</text>
+<rect x="20" y="226" width="250" height="404" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="36" y="250" class="z" text-anchor="start">2  BUILD + IMAGE DELIVERY</text>
+<text x="145" y="270" class="x" text-anchor="middle" style="fill:#fbbf24">Manual build and deployment</text>
+<rect x="40" y="282" width="210" height="52" rx="10" fill="#14233d" stroke="#4ea8ff" stroke-width="1.5"/>
+<path transform="translate(49 296.0) scale(1)" d="M8 6L2 12l6 6M16 6l6 6-6 6M14 4l-4 16" fill="none" stroke="#4ea8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="162.0" y="305.0" class="b" text-anchor="middle">Developer</text>
+<text x="162.0" y="322.0" class="x" text-anchor="middle">VS Code</text>
+<rect x="40" y="362" width="210" height="52" rx="10" fill="#14233d" stroke="#4ea8ff" stroke-width="1.5"/>
+<path transform="translate(49 376.0) scale(1)" d="M6 4v16M6 14c0-5 12-1 12-8M4 4h4M4 20h4M16 6h4" fill="none" stroke="#4ea8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="162.0" y="385.0" class="b" text-anchor="middle">GitHub</text>
+<text x="162.0" y="402.0" class="x" text-anchor="middle">repository (Git)</text>
+<rect x="40" y="442" width="210" height="52" rx="10" fill="#14233d" stroke="#4ea8ff" stroke-width="1.5"/>
+<path transform="translate(49 456.0) scale(1)" d="M4 20l10-10M12 5l7 7M14 3l7 7" fill="none" stroke="#4ea8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="162.0" y="465.0" class="b" text-anchor="middle">Docker build</text>
+<text x="162.0" y="482.0" class="x" text-anchor="middle">Dockerfile</text>
+<rect x="40" y="522" width="210" height="52" rx="10" fill="#14233d" stroke="#4ea8ff" stroke-width="1.5"/>
+<path transform="translate(49 536.0) scale(1)" d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10" fill="none" stroke="#4ea8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="162.0" y="545.0" class="b" text-anchor="middle">Docker image</text>
+<text x="162.0" y="562.0" class="x" text-anchor="middle">Flask application</text>
+<path d="M145 334V360" fill="none" stroke="#4ea8ff" stroke-width="2.2" marker-end="url(#m4ea8ff)"/>
+<path d="M145 414V440" fill="none" stroke="#4ea8ff" stroke-width="2.2" marker-end="url(#m4ea8ff)"/>
+<path d="M145 494V520" fill="none" stroke="#4ea8ff" stroke-width="2.2" marker-end="url(#m4ea8ff)"/>
+<rect x="280" y="226" width="1300" height="404" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="296" y="250" class="z" text-anchor="start">3  KUBERNETES DEPLOYMENT</text>
+<path transform="translate(1494 231) scale(1)" d="M7 18a5 5 0 01-.5-10A6 6 0 0118 9a4.500 4.500 0 01-1 9z" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1488" y="249" class="b" text-anchor="end" style="fill:#ff9f43">AWS Cloud</text>
+<rect x="290" y="260" width="1280" height="362" rx="10" fill="none" stroke="#ff9f43" stroke-width="1.5"/>
+<rect x="310" y="345" width="160" height="60" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(319 363.0) scale(1)" d="M8 8a4 4 0 100 8 4 4 0 000-8zM12 12h10M18 12v4M22 12v3" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="407.0" y="372.0" class="b" text-anchor="middle">AWS IAM</text>
+<text x="407.0" y="389.0" class="x" text-anchor="middle">roles + policies</text>
+<rect x="310" y="520" width="160" height="60" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(319 538.0) scale(1)" d="M12 3l9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="407.0" y="547.0" class="b" text-anchor="middle">Amazon ECR</text>
+<text x="407.0" y="564.0" class="x" text-anchor="middle">image registry</text>
+<path d="M250 548H308" fill="none" stroke="#4ea8ff" stroke-width="2.2" marker-end="url(#m4ea8ff)"/>
+<text x="265" y="540" class="x" text-anchor="middle">push</text>
+<rect x="490" y="268" width="1068" height="346" rx="10" fill="none" stroke="#b794f6" stroke-width="1.5"/>
+<text x="504" y="286" class="x" text-anchor="start" style="fill:#b794f6">VPC  •  Subnets  •  Internet Gateway  •  Route table</text>
+<rect x="502" y="294" width="1046" height="296" rx="10" fill="#101f38" stroke="#ff9f43" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="516" y="314" class="b" text-anchor="start" style="fill:#ff9f43">Amazon EKS cluster  •  Kubernetes</text>
+<rect x="516" y="350" width="176" height="64" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(525 370.0) scale(1)" d="M6 6h12v12H6zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="621.0" y="379.0" class="b" text-anchor="middle">EKS Control Plane</text>
+<text x="621.0" y="396.0" class="x" text-anchor="middle">AWS-managed</text>
+<rect x="730" y="326" width="230" height="52" rx="10" fill="#14233d" stroke="#4fd1e8" stroke-width="1.5"/>
+<path transform="translate(739 340.0) scale(1)" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="#4fd1e8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="862.0" y="349.0" class="b" text-anchor="middle">Deployment</text>
+<text x="862.0" y="366.0" class="x" text-anchor="middle">devops-flask-deployment</text>
+<rect x="716" y="420" width="124" height="50" rx="10" fill="#14233d" stroke="#94a3b8" stroke-width="1.5"/>
+<path transform="translate(725 433.0) scale(1)" d="M6 3h9l4 4v14H6zM9 11h7M9 15h7" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="795.0" y="442.0" class="b" text-anchor="middle">ConfigMap</text>
+<text x="795.0" y="459.0" class="x" text-anchor="middle">app config</text>
+<rect x="854" y="420" width="106" height="50" rx="10" fill="#14233d" stroke="#94a3b8" stroke-width="1.5"/>
+<path transform="translate(863 433.0) scale(1)" d="M5 11h14v10H5zM8 11V7a4 4 0 018 0v4" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="924.0" y="442.0" class="b" text-anchor="middle">Secret</text>
+<text x="924.0" y="459.0" class="x" text-anchor="middle">sensitive</text>
+<rect x="730" y="512" width="230" height="62" rx="10" fill="#14233d" stroke="#b794f6" stroke-width="1.5"/>
+<path transform="translate(739 531.0) scale(1)" d="M9 3h6v5H9zM2 16h6v5H2zM16 16h6v5h-6zM12 8v4M5 16v-4h14v4" fill="none" stroke="#b794f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="862.0" y="540.0" class="b" text-anchor="middle">Service (NodePort 30080)</text>
+<text x="862.0" y="557.0" class="x" text-anchor="middle">devops-flask-service</text>
+<rect x="1050" y="304" width="484" height="274" rx="10" fill="#0d2233" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(1062 311) scale(0.8)" d="M3 4h18v7H3zM3 13h18v7H3zM7 7.5h.1M7 16.5h.1" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1088" y="327" class="b" text-anchor="start">Managed Worker Node</text>
+<rect x="1130" y="348" width="384" height="170" rx="10" fill="#10283d" stroke="#4fd1e8" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="1146" y="370" class="b" text-anchor="start" style="fill:#4fd1e8">Flask Application Pod</text>
+<rect x="1148" y="386" width="348" height="116" rx="10" fill="#14233d" stroke="#4ea8ff" stroke-width="1.5"/>
+<path transform="translate(1162 396) scale(1)" d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10" fill="none" stroke="#4ea8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1196" y="413" class="b" text-anchor="start">Docker container</text>
+<path transform="translate(1210 438) scale(1.4)" d="M5 5h14v14H5zM9 9h6M9 12h4M9 15h6" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1260" y="452" class="b" text-anchor="start">Python Flask</text>
+<text x="1260" y="472" class="s" text-anchor="start">containerPort: 5000</text>
+<path d="M960 352H1128" fill="none" stroke="#4fd1e8" stroke-width="2.2" marker-end="url(#m4fd1e8)"/>
+<text x="1005" y="344" class="x" text-anchor="middle">manages</text>
+<path d="M778 470V490H1100V446H1128" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#m94a3b8)"/>
+<path d="M905 470V490" fill="none" stroke="#94a3b8" stroke-width="2.2"/>
+<text x="1005" y="482" class="x" text-anchor="middle">configuration</text>
+<path d="M960 543H1180V520" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<text x="1008" y="535" class="x" text-anchor="middle">selects Pod</text>
+<path d="M390 580V608H1330V580" fill="none" stroke="#4ea8ff" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#m4ea8ff)"/>
+<text x="700" y="604" class="x" text-anchor="middle" style="fill:#4ea8ff">worker node pulls image from ECR</text>
+<path d="M1330 578V504" fill="none" stroke="#4ea8ff" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#m4ea8ff)"/>
+<text x="1340" y="545" class="x" text-anchor="start" style="fill:#4ea8ff">image runs in Pod</text>
+<rect x="20" y="640" width="1560" height="226" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="36" y="664" class="z" text-anchor="start">4  APPLICATION REQUEST FLOW</text>
+<text x="36" y="690" class="b" text-anchor="start" style="fill:#fbbf24">Intended public access — not verified</text>
+<text x="36" y="710" class="x" text-anchor="start">Design of the public route</text>
+<rect x="330" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(339 687.0) scale(1)" d="M12 3a4 4 0 100 8 4 4 0 000-8zM4 21c0-9 16-9 16 0" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="431.5" y="696.0" class="b" text-anchor="middle">User browser</text>
+<text x="431.5" y="713.0" class="x" text-anchor="middle">HTTP request</text>
+<path d="M499 699H541" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<rect x="543" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(552 687.0) scale(1)" d="M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c-5 5-5 13 0 18M12 3c5 5 5 13 0 18" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="644.5" y="696.0" class="b" text-anchor="middle">Worker node</text>
+<text x="644.5" y="713.0" class="x" text-anchor="middle">public IP</text>
+<path d="M712 699H754" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<rect x="756" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(765 687.0) scale(1)" d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="857.5" y="696.0" class="b" text-anchor="middle">Security Group</text>
+<text x="857.5" y="713.0" class="x" text-anchor="middle">allows TCP 30080</text>
+<path d="M925 699H967" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<rect x="969" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(978 687.0) scale(1)" d="M9 3h6v5H9zM2 16h6v5H2zM16 16h6v5h-6zM12 8v4M5 16v-4h14v4" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1070.5" y="696.0" class="b" text-anchor="middle">NodePort Service</text>
+<text x="1070.5" y="713.0" class="x" text-anchor="middle">port 30080</text>
+<path d="M1138 699H1180" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<rect x="1182" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(1191 687.0) scale(1)" d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1283.5" y="704.0" class="b" text-anchor="middle">Flask Pod</text>
+<path d="M1351 699H1393" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<rect x="1395" y="674" width="169" height="50" rx="10" fill="#14233d" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path transform="translate(1404 687.0) scale(1)" d="M5 5h14v14H5zM9 9h6M9 12h4M9 15h6" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1496.5" y="696.0" class="b" text-anchor="middle">Flask app</text>
+<text x="1496.5" y="713.0" class="x" text-anchor="middle">port 5000</text>
+<path d="M1480 724V742H414V726" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mfbbf24)"/>
+<text x="800" y="756" class="x" text-anchor="middle" style="fill:#fbbf24">HTTP response returns to the browser</text>
+<text x="36" y="788" class="b" text-anchor="start" style="fill:#35d39a">Verified test</text>
+<text x="36" y="808" class="x" text-anchor="start">Tested with kubectl port-forward</text>
+<rect x="330" y="772" width="212" height="50" rx="10" fill="#14233d" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(339 785.0) scale(1)" d="M12 3a4 4 0 100 8 4 4 0 000-8zM4 21c0-9 16-9 16 0" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="453.0" y="794.0" class="b" text-anchor="middle">Local browser</text>
+<text x="453.0" y="811.0" class="x" text-anchor="middle">localhost:5000</text>
+<path d="M542 797H584" fill="none" stroke="#35d39a" stroke-width="2.2" marker-end="url(#m35d39a)"/>
+<rect x="586" y="772" width="212" height="50" rx="10" fill="#14233d" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(595 785.0) scale(1)" d="M3 4h18v16H3zM7 9l3 3-3 3M13 15h4" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="709.0" y="794.0" class="b" text-anchor="middle">kubectl</text>
+<text x="709.0" y="811.0" class="x" text-anchor="middle">port-forward</text>
+<path d="M797 797H839" fill="none" stroke="#35d39a" stroke-width="2.2" marker-end="url(#m35d39a)"/>
+<rect x="841" y="772" width="212" height="50" rx="10" fill="#14233d" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(850 785.0) scale(1)" d="M9 3h6v5H9zM2 16h6v5H2zM16 16h6v5h-6zM12 8v4M5 16v-4h14v4" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="964.0" y="794.0" class="b" text-anchor="middle">Kubernetes Service</text>
+<text x="964.0" y="811.0" class="x" text-anchor="middle">devops-flask-service</text>
+<path d="M1053 797H1095" fill="none" stroke="#35d39a" stroke-width="2.2" marker-end="url(#m35d39a)"/>
+<rect x="1097" y="772" width="212" height="50" rx="10" fill="#14233d" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(1106 785.0) scale(1)" d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1220.0" y="802.0" class="b" text-anchor="middle">Flask Pod</text>
+<path d="M1308 797H1350" fill="none" stroke="#35d39a" stroke-width="2.2" marker-end="url(#m35d39a)"/>
+<rect x="1352" y="772" width="212" height="50" rx="10" fill="#14233d" stroke="#35d39a" stroke-width="1.5"/>
+<path transform="translate(1361 785.0) scale(1)" d="M5 5h14v14H5zM9 9h6M9 12h4M9 15h6" fill="none" stroke="#35d39a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1475.0" y="794.0" class="b" text-anchor="middle">Flask app</text>
+<text x="1475.0" y="811.0" class="x" text-anchor="middle">port 5000</text>
+<path d="M1458 822V840H436V824" fill="none" stroke="#35d39a" stroke-width="2.2" marker-end="url(#m35d39a)"/>
+<text x="800" y="854" class="x" text-anchor="middle" style="fill:#35d39a">HTTP response returns to the browser</text>
+<mask id="behind" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900"><rect width="1600" height="900" fill="#fff"/><rect x="36" y="132" width="180" height="66" rx="10" fill="#000"/><rect x="240" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="407" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="574" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="741" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="908" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="1075" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="1242" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="1409" y="142" width="158" height="56" rx="10" fill="#000"/><rect x="40" y="282" width="210" height="52" rx="10" fill="#000"/><rect x="40" y="362" width="210" height="52" rx="10" fill="#000"/><rect x="40" y="442" width="210" height="52" rx="10" fill="#000"/><rect x="40" y="522" width="210" height="52" rx="10" fill="#000"/><rect x="310" y="345" width="160" height="60" rx="10" fill="#000"/><rect x="310" y="520" width="160" height="60" rx="10" fill="#000"/><rect x="516" y="350" width="176" height="64" rx="10" fill="#000"/><rect x="730" y="326" width="230" height="52" rx="10" fill="#000"/><rect x="716" y="420" width="124" height="50" rx="10" fill="#000"/><rect x="854" y="420" width="106" height="50" rx="10" fill="#000"/><rect x="730" y="512" width="230" height="62" rx="10" fill="#000"/><rect x="330" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="543" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="756" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="969" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="1182" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="1395" y="674" width="169" height="50" rx="10" fill="#000"/><rect x="330" y="772" width="212" height="50" rx="10" fill="#000"/><rect x="586" y="772" width="212" height="50" rx="10" fill="#000"/><rect x="841" y="772" width="212" height="50" rx="10" fill="#000"/><rect x="1097" y="772" width="212" height="50" rx="10" fill="#000"/><rect x="1352" y="772" width="212" height="50" rx="10" fill="#000"/></mask><g mask="url(#behind)">
+<circle r="7" fill="#4ea8ff" stroke="#fff" stroke-width="2"><animateMotion dur="12s" repeatCount="indefinite" calcMode="paced" path="M145 308V548H390V608H1330V504"/></circle>
+<circle r="7" fill="#fbbf24" stroke="#fff" stroke-width="2"><animateMotion dur="12s" repeatCount="indefinite" calcMode="paced" path="M414 699H1480V742H414V724"/></circle>
+<circle r="7" fill="#35d39a" stroke="#fff" stroke-width="2"><animateMotion dur="12s" repeatCount="indefinite" calcMode="paced" path="M436 797H1458V840H436V822"/></circle>
+</g>
+<text x="800" y="888" class="s" text-anchor="middle">Architecture illustration — not live monitoring. AWS infrastructure destroyed after testing.</text>
+</svg>
