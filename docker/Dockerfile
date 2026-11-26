@@ -1,21 +1,19 @@
-
-# Use Python base image
 FROM python:3.12-slim
 
-# Set working directory inside container
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Copy dependencies file
 COPY app/requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
 COPY app/ .
 
-# Application port
+# Run the application without root privileges.
+RUN useradd --system --uid 10001 --create-home appuser
+USER 10001
+
 EXPOSE 5000
 
-# Start Flask application
 CMD ["python", "app.py"]
