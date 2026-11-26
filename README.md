@@ -4,7 +4,7 @@ This is a learning project where I deployed a small Python Flask application usi
 
 ## Architecture
 
-![Cloud-Native DevOps Platform architecture](architecture-aws-flow.svg)
+![Cloud-Native DevOps Platform architecture](architecture-aws-flow-live.svg)
 
 ## What I did
 
