@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Cloud-Native DevOps Platform on AWS EKS architecture">
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#e2e8f0}.h{font-size:28px;font-weight:700;fill:#fff}.z{font-size:14px;font-weight:700;letter-spacing:.8px}.b{font-size:13.5px;font-weight:700;fill:#fff}.s{font-size:13px;fill:#cbd5e1}.x{font-size:11.5px;fill:#b6c6dc}</style>
+<defs><marker id="mff9f43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff9f43"/></marker><marker id="m4ea8ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4ea8ff"/></marker><marker id="m35d39a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#35d39a"/></marker><marker id="mfbbf24" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fbbf24"/></marker><marker id="mb794f6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b794f6"/></marker><marker id="m4fd1e8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4fd1e8"/></marker><marker id="m94a3b8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs><rect width="1600" height="900" fill="#081121"/>
+<text x="20" y="38" class="h" text-anchor="start">Cloud-Native DevOps Platform on AWS EKS</text>
+<text x="20" y="62" class="s" text-anchor="start" style="fill:#ff9f43">AWS Region: ap-south-1 (Mumbai)</text>
+<rect x="20" y="78" width="1560" height="138" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="36" y="102" class="z" text-anchor="start">1  INFRASTRUCTURE PROVISIONING</text>
+<rect x="36" y="132" width="180" height="66" rx="10" fill="#14233d" stroke="#b794f6" stroke-width="1.5"/>
+<path transform="translate(45 153.0) scale(1)" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="#b794f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="143.0" y="162.0" class="b" text-anchor="middle">Terraform</text>
+<text x="143.0" y="179.0" class="x" text-anchor="middle">Infrastructure as Code</text>
+<path d="M216 165H228V118H1488" fill="none" stroke="#b794f6" stroke-width="2.2"/>
+<path d="M319 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="240" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(249 158.0) scale(1)" d="M9 3h6v5H9zM2 16h6v5H2zM16 16h6v5h-6zM12 8v4M5 16v-4h14v4" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="336.0" y="175.0" class="b" text-anchor="middle">AWS VPC</text>
+<path d="M486 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="407" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(416 158.0) scale(1)" d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="503.0" y="175.0" class="b" text-anchor="middle">Subnets</text>
+<path d="M653 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="574" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(583 158.0) scale(1)" d="M4 21V9a8 8 0 0116 0v12M9 21v-9h6v9" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="670.0" y="167.0" class="b" text-anchor="middle">Internet</text>
+<text x="670.0" y="184.0" class="x" text-anchor="middle">Gateway</text>
+<path d="M820 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="741" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(750 158.0) scale(1)" d="M4 19h6V5h10M16 2l4 3-4 3" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="837.0" y="167.0" class="b" text-anchor="middle">Route table</text>
+<text x="837.0" y="184.0" class="x" text-anchor="middle">+ associations</text>
+<path d="M987 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="908" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(917 158.0) scale(1)" d="M8 8a4 4 0 100 8 4 4 0 000-8zM12 12h10M18 12v4M22 12v3" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1004.0" y="167.0" class="b" text-anchor="middle">IAM roles</text>
+<text x="1004.0" y="184.0" class="x" text-anchor="middle">+ policies</text>
+<path d="M1154 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1075" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1084 158.0) scale(1)" d="M6 6h12v12H6zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1171.0" y="167.0" class="b" text-anchor="middle">Amazon EKS</text>
+<text x="1171.0" y="184.0" class="x" text-anchor="middle">cluster</text>
+<path d="M1321 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1242" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1251 158.0) scale(1)" d="M3 4h18v7H3zM3 13h18v7H3zM7 7.5h.1M7 16.5h.1" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1338.0" y="167.0" class="b" text-anchor="middle">EKS managed</text>
+<text x="1338.0" y="184.0" class="x" text-anchor="middle">node group</text>
+<path d="M1488 118V140" fill="none" stroke="#b794f6" stroke-width="2.2" marker-end="url(#mb794f6)"/>
+<rect x="1409" y="142" width="158" height="56" rx="10" fill="#14233d" stroke="#ff9f43" stroke-width="1.5"/>
+<path transform="translate(1418 158.0) scale(1)" d="M12 3l9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" fill="none" stroke="#ff9f43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1505.0" y="167.0" class="b" text-anchor="middle">Amazon ECR</text>
+<text x="1505.0" y="184.0" class="x" text-anchor="middle">repository</text>
+<rect x="20" y="226" width="250" height="404" rx="14" fill="#0f1c33" stroke="#29405f" stroke-width="1.5"/>
+<text x="36" y="250" class="z" text-anchor="start">2  BUILD + IMAGE DELIVERY</text>
+<text x="145" y="270" class="x" text-anchor="middle" style="fill:#fbbf24">Manual build and deployment</text>
