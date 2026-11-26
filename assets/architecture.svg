@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#17243a"/></linearGradient>
+ <linearGradient id="aws" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb84d"/><stop offset="1" stop-color="#ff8a00"/></linearGradient>
+ <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#79d7ff"/></marker>
+ <marker id="arrow2" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#f8b84e"/></marker>
+ <style>
+ .h{font:700 34px Arial,sans-serif;fill:#f8fafc}.sub{font:400 18px Arial,sans-serif;fill:#a9bbd1}
+ .section{font:700 20px Arial,sans-serif;fill:#dbeafe;letter-spacing:1px}
+ .label{font:700 21px Arial,sans-serif;fill:#f8fafc}.small{font:400 16px Arial,sans-serif;fill:#c2d0e2}
+ .tiny{font:400 14px Arial,sans-serif;fill:#a9bbd1}.brand{font:700 23px Arial,sans-serif;fill:#fff}
+ .card{fill:#16243a;stroke:#314761;stroke-width:2}.line{fill:none;stroke:#79d7ff;stroke-width:4;marker-end:url(#arrow)}
+ .infra{fill:none;stroke:#f8b84e;stroke-width:3;stroke-dasharray:9 8;marker-end:url(#arrow2)}
+ </style>
+</defs>
+<rect width="1600" height="1000" rx="28" fill="url(#bg)"/>
+<text x="70" y="72" class="h">CLOUD-NATIVE DEVOPS PLATFORM</text>
+<text x="70" y="108" class="sub">End-to-end architecture • AWS EKS • Terraform • Docker • Kubernetes • Flask</text>
+<rect x="70" y="140" width="1460" height="270" rx="22" fill="#101c2d" stroke="#344a64" stroke-width="2"/>
+<text x="100" y="180" class="section">1  CODE &amp; IMAGE DELIVERY  (MANUAL WORKFLOW)</text>
+<g>
+ <rect x="105" y="215" width="190" height="125" rx="16" class="card"/>
+ <circle cx="145" cy="255" r="20" fill="#344b68"/><text x="145" y="263" text-anchor="middle" class="brand">VS</text>
+ <text x="200" y="255" text-anchor="middle" class="label">Developer</text><text x="200" y="290" text-anchor="middle" class="small">VS Code</text><text x="200" y="315" text-anchor="middle" class="tiny">Code + YAML</text>
+ <path d="M295 277 H355" class="line"/>
+ <rect x="365" y="215" width="190" height="125" rx="16" class="card"/>
+ <circle cx="405" cy="255" r="20" fill="#f8fafc"/><text x="405" y="263" text-anchor="middle" font-family="Arial" font-weight="700" font-size="20" fill="#101827">GH</text>
+ <text x="460" y="255" text-anchor="middle" class="label">GitHub</text><text x="460" y="290" text-anchor="middle" class="small">Repository</text><text x="460" y="315" text-anchor="middle" class="tiny">git push</text>
+ <path d="M555 277 H615" class="line"/>
+ <rect x="625" y="215" width="190" height="125" rx="16" class="card"/>
+ <circle cx="665" cy="255" r="20" fill="#2496ed"/><text x="665" y="263" text-anchor="middle" class="brand">D</text>
+ <text x="720" y="255" text-anchor="middle" class="label">Docker</text><text x="720" y="290" text-anchor="middle" class="small">Build image</text><text x="720" y="315" text-anchor="middle" class="tiny">Containerize Flask</text>
+ <path d="M815 277 H875" class="line"/>
+ <rect x="885" y="215" width="190" height="125" rx="16" class="card"/>
+ <circle cx="925" cy="255" r="20" fill="#ff9900"/><text x="925" y="263" text-anchor="middle" class="brand">ECR</text>
+ <text x="980" y="255" text-anchor="middle" class="label">Amazon ECR</text><text x="980" y="290" text-anchor="middle" class="small">Image registry</text><text x="980" y="315" text-anchor="middle" class="tiny">Push / Pull image</text>
+ <path d="M1075 277 H1135" class="line"/>
+ <rect x="1145" y="215" width="340" height="125" rx="16" class="card"/>
+ <circle cx="1190" cy="255" r="23" fill="#ff9900"/><text x="1190" y="263" text-anchor="middle" class="brand">EKS</text>
+ <text x="1330" y="255" text-anchor="middle" class="label">Amazon EKS</text><text x="1330" y="290" text-anchor="middle" class="small">kubectl apply manifests</text><text x="1330" y="315" text-anchor="middle" class="tiny">Deployment updated</text>
+</g>
+<text x="100" y="378" class="small">Note: Image build/push and Kubernetes deployment were performed manually; no CI/CD pipeline is claimed.</text>
+
+<rect x="70" y="435" width="1460" height="320" rx="22" fill="#101c2d" stroke="#344a64" stroke-width="2"/>
+<text x="100" y="475" class="section">2  USER REQUEST FLOW  (INTENDED PUBLIC PATH)</text>
+<rect x="105" y="520" width="200" height="145" rx="16" class="card"/>
+<text x="205" y="560" text-anchor="middle" class="label">User / Browser</text><text x="205" y="595" text-anchor="middle" class="small">HTTP request</text><text x="205" y="625" text-anchor="middle" class="tiny">App URL</text>
+<path d="M305 590 H365" class="line"/>
+<rect x="375" y="520" width="250" height="145" rx="16" class="card"/>
+<text x="500" y="558" text-anchor="middle" class="label">AWS Networking</text><text x="500" y="590" text-anchor="middle" class="small">Public worker-node IP</text><text x="500" y="620" text-anchor="middle" class="small">Security Group :30080</text>
+<path d="M625 590 H685" class="line"/>
+<rect x="695" y="520" width="235" height="145" rx="16" class="card"/>
+<text x="812" y="558" text-anchor="middle" class="label">Kubernetes</text><text x="812" y="590" text-anchor="middle" class="small">NodePort Service</text><text x="812" y="620" text-anchor="middle" class="small">Port 30080</text>
+<path d="M930 590 H990" class="line"/>
+<rect x="1000" y="520" width="220" height="145" rx="16" class="card"/>
+<text x="1110" y="558" text-anchor="middle" class="label">Flask Pod</text><text x="1110" y="590" text-anchor="middle" class="small">Container port 5000</text><text x="1110" y="620" text-anchor="middle" class="tiny">Kubernetes Deployment</text>
+<path d="M1220 590 H1280" class="line"/>
+<rect x="1290" y="520" width="195" height="145" rx="16" fill="#173b35" stroke="#42c59a" stroke-width="2"/>
+<text x="1387" y="558" text-anchor="middle" class="label">Flask App</text><text x="1387" y="590" text-anchor="middle" class="small">Process request</text><text x="1387" y="620" text-anchor="middle" class="small">Return response</text>
+<text x="100" y="710" class="small">Response returns through the same path in reverse. Public NodePort access was not verified; port-forward was tested successfully.</text>
+
+<rect x="70" y="780" width="1460" height="150" rx="22" fill="#101c2d" stroke="#344a64" stroke-width="2"/>
+<text x="100" y="820" class="section">3  INFRASTRUCTURE PROVISIONING  (TERRAFORM)</text>
+<rect x="105" y="845" width="230" height="60" rx="14" fill="#49351b" stroke="#f8b84e" stroke-width="2"/>
+<text x="220" y="882" text-anchor="middle" class="label">Terraform</text>
+<path d="M335 875 H400" class="infra"/>
+<rect x="410" y="845" width="390" height="60" rx="14" class="card"/>
+<text x="605" y="882" text-anchor="middle" class="label">AWS VPC • Subnets • Routes • IGW • IAM</text>
+<path d="M800 875 H865" class="infra"/>
+<rect x="875" y="845" width="275" height="60" rx="14" class="card"/>
+<text x="1012" y="882" text-anchor="middle" class="label">EKS + Worker Node Group</text>
+<path d="M1150 875 H1215" class="infra"/>
+<rect x="1225" y="845" width="260" height="60" rx="14" class="card"/>
+<text x="1355" y="882" text-anchor="middle" class="label">ECR Repository</text>
+<text x="70" y="970" class="tiny">Project lab: infrastructure was destroyed after testing to avoid ongoing AWS charges. Diagram describes the project architecture, not a currently running cloud environment.</text>
+</svg>
