@@ -1,12 +1,30 @@
-
-# Python virtual environment
+# Python
+.venv/
+venv/
 app/venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
 
 # Local environment and secrets
 .env
+.env.*
+!.env.example
 kubernetes/secret.yaml
+*.pem
+*.key
+
+# Terraform generated files and state (never commit state or secrets)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # Generated Docker image archive
 devops-flask-app.tar
